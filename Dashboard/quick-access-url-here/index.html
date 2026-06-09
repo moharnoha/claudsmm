@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة بلون مخصص</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FCFAFA;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            font-family: sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .content {
+            text-align: center;
+            color: #333;
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+            align-items: center;
+            direction: ltr;
+            font-family: 'Inter', sans-serif;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar {
+            display: none;
+        }
+        .filter-btn {
+            background-color: #FFFFFF;
+            color: #1A1C19;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            text-decoration: none;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s, transform 0.1s;
+            flex-shrink: 0;
+        }
+        .filter-btn:active {
+            transform: scale(0.95);
+            background-color: #E2E5E7;
+        }
+        .filter-btn.active {
+            background-color: #F1F3F4;
+            color: #1A1C19;
+        }
+        
+        .sub-filter-container {
+            display: none;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+            justify-content: flex-start;
+            direction: ltr;
+        }
+        .sub-filter-container.show {
+            display: flex;
+        }
+        .sub-btn {
+            background-color: #F0F2F5;
+            color: #4B4B4D;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s, transform 0.1s;
+            user-select: none;
+        }
+        .sub-btn:hover {
+            background-color: #E4E6EB;
+        }
+        .sub-btn:active {
+            transform: scale(0.95);
+        }
+        .sub-btn.active {
+            background-color: #1A1C19;
+            color: #FFFFFF;
+        }
+
+        /* Quick Access Box Styles */
+        .account-card-container {
+            margin-top: 25px;
+            background-color: #FFFFFF;
+            border-radius: 28px;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            text-align: left;
+        }
+        .card-top-banner {
+            background-color: #D4E3EA;
+            padding: 18px 20px 24px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+            position: relative;
+        }
+        .cards-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #142300;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s;
+        }
+        .cards-link:active {
+            opacity: 0.7;
+        }
+        .card-top-logo {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cloud-segment {
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .account-row {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding: 24px 20px;
+            text-decoration: none;
+        }
+        .arrow-icon {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #43483F;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Modern Modernized Search Bar Styles to match the design aesthetics */
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background-color: #F1F3F4;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            border-radius: 50px;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 0 6px 0 16px;
+            height: 48px;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        .search-container:focus-within {
+            background-color: #FFFFFF;
+            box-shadow: inset 0 0 0 1.5px #1A1C19;
+        }
+        .search-icon-btn {
+            background-color: transparent;
+            border: none;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+        .search-icon-btn svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: #5F6368;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.2s;
+        }
+        .search-container:focus-within .search-icon-btn svg {
+            stroke: #1A1C19;
+        }
+        .search-input {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            padding: 0;
+            font-size: 15px;
+            font-weight: 500;
+            color: #1A1C19;
+            flex: 1;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+        }
+        .search-input::placeholder {
+            color: #5F6368;
+            opacity: 0.8;
+        }
+
+        /* Category Scroll Custom Styles - Enhanced & Cohesive */
+        .category-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .category-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1A1C19;
+            margin: 0;
+            padding-left: 4px;
+        }
+        .category-options-box {
+            width: 100%;
+            max-height: 156px; /* Exactly 3 items with seamless vertical sizing */
+            overflow-y: auto;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 18px;
+            background-color: #F8F9FA;
+            box-sizing: border-box;
+            scrollbar-width: none;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .category-options-box::-webkit-scrollbar {
+            display: none;
+        }
+        .category-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            box-sizing: border-box;
+            border-radius: 12px;
+            background-color: transparent;
+            transition: background-color 0.15s;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-align: left;
+        }
+        .category-item:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+        .category-item.selected {
+            background-color: #1A1C19;
+        }
+        .category-main-text {
+            font-size: 14px;
+            color: #1A1C19;
+            font-weight: 700;
+            transition: color 0.15s;
+        }
+        .category-sub-text {
+            font-size: 11px;
+            color: #5F6368;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+        .category-item.selected .category-main-text {
+            color: #FFFFFF;
+        }
+        .category-item.selected .category-sub-text {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Modern Form Custom Inputs & Options Fields matching site aesthetics */
+        .form-field-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+        .form-field-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1A1C19;
+            margin: 0;
+            padding-left: 4px;
+        }
+        .form-custom-select {
+            width: 100%;
+            height: 48px;
+            background-color: #F1F3F4;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            border-radius: 50px;
+            padding: 0 20px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1C19;
+            outline: none;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2343483F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 16px;
+        }
+        .form-custom-select:focus {
+            background-color: #FFFFFF;
+            box-shadow: inset 0 0 0 1.5px #1A1C19;
+        }
+        .description-panel {
+            background-color: #F1F3F4;
+            border-radius: 20px;
+            padding: 16px 20px;
+            box-sizing: border-box;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #43483F;
+        }
+        .description-panel ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .description-panel li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        .description-panel li::before {
+            content: "•";
+            color: #1A1C19;
+            font-weight: 700;
+        }
+        .form-custom-input {
+            width: 100%;
+            height: 48px;
+            background-color: #F1F3F4;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            border-radius: 50px;
+            padding: 0 20px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #1A1C19;
+            outline: none;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-custom-input:focus {
+            background-color: #FFFFFF;
+            box-shadow: inset 0 0 0 1.5px #1A1C19;
+        }
+        .form-info-display {
+            width: 100%;
+            height: 48px;
+            background-color: #F1F3F4;
+            border-radius: 50px;
+            padding: 0 20px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1C19;
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .submit-order-btn {
+            width: 100%;
+            height: 52px;
+            background-color: #1A1C19;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .submit-order-btn:active {
+            transform: scale(0.98);
+            background-color: #333632;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <div class="filter-container">
+            <div class="filter-btn active" onclick="setActive(this, 'smm-subs')">Social Media Smm</div>
+            <div class="filter-btn" onclick="setActive(this, 'game-subs')">Game Top-Up</div>
+        </div>
+
+        <div id="smm-subs" class="sub-filter-container show">
+            <div class="sub-btn" onclick="setSubActive(this)">Facebook</div>
+            <div class="sub-btn" onclick="setSubActive(this)">Instagram</div>
+            <div class="sub-btn" onclick="setSubActive(this)">TikTok</div>
+            <div class="sub-btn" onclick="setSubActive(this)">Twitter (X)</div>
+            <div class="sub-btn" onclick="setSubActive(this)">YouTube</div>
+            <div class="sub-btn" onclick="setSubActive(this)">Snapchat</div>
+            <div class="sub-btn" onclick="setSubActive(this)">Telegram</div>
+        </div>
+
+        <div id="game-subs" class="sub-filter-container">
+            <div class="sub-btn" onclick="setSubActive(this)">PUBG Mobile</div>
+            <div class="sub-btn" onclick="setSubActive(this)">Free Fire</div>
+            <div class="sub-btn" onclick="setSubActive(this)">Call of Duty</div>
+            <div class="sub-btn" onclick="setSubActive(this)">Ludo</div>
+        </div>
+
+        <div class="account-card-container">
+            <div class="card-top-banner">
+                <a href="javascript:void(0);" class="cards-link" onclick="handleButtonClick(this)">
+                    New Order
+                    <svg class="arrow-icon" style="stroke: #142300; width: 14px; height: 14px;" viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+                <div class="card-top-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                        <g transform="translate(14, 14) scale(3.2)">
+                            <path class="cloud-segment" style="stroke: #142300;" d="M2 15.7647C2 18.1038 3.91878 20 6.28571 20H7" />
+                            <path class="cloud-segment" style="stroke: #142300;" d="M7.11616 11.6089C6.8475 11.5567 6.56983 11.5294 6.28571 11.5294C3.91878 11.5294 2 13.4256 2 15.7647" />
+                            <path class="cloud-segment" style="stroke: #142300;" d="M7.11616 11.6089C6.88706 10.9978 6.7619 10.3369 6.7619 9.64706C6.7619 6.52827 9.32028 4 12.4762 4C15.4159 4 17.8371 6.19371 18.1551 9.01498M18.1551 9.01498C18.8381 9.24853 19.4623 9.60648 20 10.0614M22 14.3529C22 17.4717 19.4416 20 16.2857 20H11M14.381 9.02721C14.9767 8.81911 15.6178 8.70588 16.2857 8.70588C16.9404 8.70588 17.5693 8.81468 18.1551 9.01498" />
+                        </g>
+                        <path d="M 50,40 C 51,45.5 53.5,47.5 57,48.5 C 53.5,49.5 51,51.5 50,57 C 49,51.5 46.5,49.5 43,48.5 C 46.5,47.5 49,45.5 50,40 Z" style="fill: #142300;" />
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="account-row">
+                <div class="search-container">
+                    <button class="search-icon-btn">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                    <input type="text" class="search-input" placeholder="Search services...">
+                </div>
+
+                <div class="category-wrapper">
+                    <h3 class="category-label">Category</h3>
+                    <div class="category-options-box">
+                        <div class="category-item selected" onclick="selectItem(this)">
+                            <span class="category-main-text">🎵 Tiktok - Views ⭐</span>
+                            <span class="category-sub-text">High Quality & Fast Speed</span>
+                        </div>
+                        <div class="category-item" onclick="selectItem(this)">
+                            <span class="category-main-text">🎵 Tiktok - Likes ⭐</span>
+                            <span class="category-sub-text">Real Profiles / Instant Drop-free</span>
+                        </div>
+                        <div class="category-item" onclick="selectItem(this)">
+                            <span class="category-main-text">🎵 Tiktok - Shares ⭐</span>
+                            <span class="category-sub-text">Boost Organic Viral Reach</span>
+                        </div>
+                        <div class="category-item" onclick="selectItem(this)">
+                            <span class="category-main-text">🎵 Tiktok - Saves ⭐</span>
+                            <span class="category-sub-text">Maximize Bookmark Algorithm</span>
+                        </div>
+                        <div class="category-item" onclick="selectItem(this)">
+                            <span class="category-main-text">🎵 Tiktok - Followers ⭐</span>
+                            <span class="category-sub-text">Stable Growth & Retention</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-field-label">Service</label>
+                    <select class="form-custom-select">
+                        <option>65 - Tiktok Views | Drop Possible | Superfast | Max 10M</option>
+                        <option>66 - Tiktok Views | Real Active | Lifetime Guaranteed</option>
+                    </select>
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-field-label">Description</label>
+                    <div class="description-panel">
+                        <ul>
+                            <li>Link: Platform Link</li>
+                            <li>Speed: 1M/D</li>
+                            <li>Refill: No</li>
+                            <li>Drop: Possible</li>
+                            <li>Country: World Wide</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-field-label">Link</label>
+                    <input type="text" class="form-custom-input" placeholder="https://">
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-field-label">Quantity</label>
+                    <input type="number" class="form-custom-input" placeholder="100" min="100">
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-field-label">Average Time</label>
+                    <div class="form-info-display">4 hours 18 minutes</div>
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-field-label">Charge</label>
+                    <div class="form-info-display">$0.00</div>
+                </div>
+
+                <button class="submit-order-btn">
+                    Place Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setActive(element, subId) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+
+            const subContainers = document.querySelectorAll('.sub-filter-container');
+            subContainers.forEach(container => container.classList.remove('show'));
+
+            if (subId) {
+                document.getElementById(subId).classList.add('show');
+            }
+        }
+
+        function setSubActive(element) {
+            const parent = element.parentElement;
+            const subButtons = parent.querySelectorAll('.sub-btn');
+            subButtons.forEach(btn => btn.classList.remove('active'));
+            
+            element.classList.add('active');
+        }
+
+        function handleButtonClick(element) {
+            element.style.transform = 'scale(0.95)';
+            element.style.opacity = '0.7';
+            setTimeout(() => {
+                element.style.transform = 'none';
+                element.style.opacity = '1';
+            }, 120);
+        }
+
+        function selectItem(element) {
+            const items = element.parentElement.querySelectorAll('.category-item');
+            items.forEach(item => item.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+    </script>
+
+</body>
+</html>
