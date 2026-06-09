@@ -1,162 +1,699 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <title>claudsmm</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
+            background-color: #1F1E1E;
             color: #1e293b;
             text-align: center;
         }
 
         /* --- Header Section --- */
         header {
-            height: 70px;
+            height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-            background-color: #ffffff; 
+            padding: 0 24px;
+            background-color: #FFFFFF; 
             border-bottom: 1px solid #e2e8f0;
-            position: relative;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            direction: ltr !important; 
+            box-sizing: border-box;
+            width: 100%;
         }
 
-        .logo {
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            text-transform: lowercase;
-            color: #1e293b;
-        }
-
-        .icon-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        .header-left {
             display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 8px;
+            flex-shrink: 0;
+        }
+
+        .menu-icon span {
+            width: 18px;
+            height: 2px;
+            background-color: #5F6368;
+            border-radius: 2px;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-svg {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            font-size: 1.35rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            color: #5F6368;
+            text-transform: none;
+            white-space: nowrap;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-direction: row; 
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: transparent;
+            display: none;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border: none;
-            transition: transform 0.2s;
-            background-color: #5570f4;
+            order: 4; 
+            overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .btn-notes { background-color: #5570f4; }
-        .btn-report { background-color: #5570f4; }
-        .icon-circle:active { transform: scale(0.95); }
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-        svg { width: 20px; height: 20px; fill: #ffffff; }
+        .nav-link {
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .lang-dropdown {
+            position: relative;
+            display: inline-block;
+            flex-shrink: 0;
+            order: -1;
+        }
+
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: #5F6368;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .lang-switch:hover {
+            background-color: #f1f3f4;
+        }
+
+        .lang-switch svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #ffffff;
+            min-width: 120px;
+            box-shadow: 0px 8px 166px 0px rgba(0,0,0,0.1);
+            z-index: 100;
+            border-radius: 8px;
+            margin-top: 4px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-content div {
+            color: #3c4043;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .dropdown-content div:hover {
+            background-color: #f8f9fa;
+        }
 
         /* --- Welcome Section --- */
         .hero {
-            padding: 60px 20px;
-        }
-
-        .hero h2 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #0f172a;
-        }
-
-        .hero p {
-            color: #64748b;
-            font-size: 1rem;
-            margin-bottom: 30px;
-        }
-
-        .hero img {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: 12px;
-        }
-
-        /* --- Bottom Sheet UI --- */
-        .bottom-sheet {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #5570f4;
-            border-top-left-radius: 24px;
-            border-top-right-radius: 24px;
-            padding: 24px 20px 40px 20px;
+            padding: 112px 24px 0 24px;
+            background-color: #1F1E1E;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            z-index: 1000;
+            align-items: center;
         }
 
-        .sheet-btn {
+        .promo-box {
+            background-color: #202124; 
+            border: 1px solid #3c4043; 
+            border-radius: 28px; 
+            padding: 24px 40px;
+            margin: 0 auto 64px auto;
             width: 100%;
-            height: 56px;
-            border-radius: 14px;
+            max-width: 900px;
+            direction: ltr; 
+            text-align: left;
+            display: flex;
+            flex-direction: row; 
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            box-sizing: border-box;
+        }
+
+        .promo-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .promo-title {
+            color: #FFFFFF;
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .promo-desc {
+            color: #bdc1c6;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .promo-btn {
+            background-color: #f68b1e; 
+            color: #000000;
             border: none;
-            font-size: 16px;
+            padding: 12px 24px;
+            border-radius: 50px;
             font-weight: 600;
+            font-size: 0.95rem;
             cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* Title with Animated Logo Styling */
+        #here_title {
+            color: white;
+            font-size: 4.5rem; 
+            font-weight: 700;
+            margin: 0 auto 24px auto;
+            line-height: 1.1; 
+            max-width: 1000px;
+            text-align: center;
+            letter-spacing: -1px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            direction: rtl;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .btn-google {
-            background-color: #ffffff;
-            color: #000000;
+        .inline-logo-container {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            display: inline-flex;
+            vertical-align: middle;
         }
 
-        .btn-login {
-            background-color: #ffffff;
-            color: #000000;
+        .cloud-segment {
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: assemble 3.5s ease-in-out infinite;
+        }
+
+        .color-yellow { stroke: #FFC107; animation-delay: 0.2s; }
+        .color-orange { stroke: #FF9800; animation-delay: 0.4s; }
+        .color-red { stroke: #F44336; animation-delay: 0.6s; }
+
+        .gemini-star {
+            fill: #F44336;
+            opacity: 0;
+            transform-origin: center;
+            animation: star-appear 3.5s ease-in-out infinite 0.8s;
+        }
+
+        @keyframes assemble {
+            0% { stroke-dashoffset: 100; opacity: 0; transform: scale(0.5) rotate(-15deg); }
+            30% { stroke-dashoffset: 0; opacity: 1; transform: scale(1) rotate(0deg); }
+            70% { opacity: 1; transform: scale(1); }
+            80% { opacity: 0; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(1.2); }
+        }
+
+        @keyframes star-appear {
+            0% { opacity: 0; transform: scale(0); }
+            30% { opacity: 1; transform: scale(1); }
+            70% { opacity: 1; transform: scale(1); }
+            80% { opacity: 0; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(1.5); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        @keyframes sand-explosion {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        #here_subtitle {
+            display: none; 
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 0 16px; height: 56px; }
+            .hero { padding-top: 104px; }
+            .header-right { gap: 12px; }
+            .nav-link { display: none; }
+            .promo-box {
+                flex-direction: column;
+                text-align: center;
+                padding: 32px 24px;
+                border-radius: 24px;
+            }
+            .promo-content { text-align: center; }
+            #here_title { font-size: 2.5rem; }
+            .inline-logo-container { width: 50px; height: 50px; }
+        }
+
+        /* --- Login Section --- */
+        .bottom-sheet {
+            position: relative;
+            background-color: #FFFFFF;
+            padding: 64px 0 0 0; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .sheet-scroll-content {
+            width: 100%;
+            max-width: 440px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 24px; 
+            box-sizing: border-box;
+        }
+
+        .sheet-logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .sheet-logo-svg {
+            width: 44px;
+            height: 44px;
+        }
+
+        .sheet-logo-text {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #202124;
+            letter-spacing: -0.5px;
+        }
+
+        .sheet-tagline {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #5f6368;
+            margin-bottom: 40px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            flex-direction: column; 
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 32px;
+        }
+
+        .icon-btn {
+            width: 100%;
+            height: 48px;
+            border-radius: 8px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
             border: none;
+            font-size: 0.95rem;
         }
 
-        .sheet-btn svg {
-            width: 20px;
-            height: 20px;
+        .more-options {
+            color: #70757a;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+        
+        .more-options::before, .more-options::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #dadce0;
+            margin: 0 16px;
+        }
+
+        .terms-text {
+            color: #70757a;
+            font-size: 0.75rem;
+            margin-bottom: 48px;
+            line-height: 1.6;
+        }
+
+        .login-footer {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 32px 0;
+            color: #5f6368;
+            font-size: 0.9rem;
+            border-top: 1px solid #dadce0;
+        }
+
+        .login-footer span {
+            color: #1a73e8;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: 4px;
         }
     </style>
 </head>
-<body>
+<body class="notranslate">
 
     <header>
-        <button class="icon-circle btn-notes">
-            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        </button>
+        <div class="header-left">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logo-group">
+                <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(14, 14) scale(3.2)">
+                        <path fill="none" stroke="#FFC107" stroke-width="2.2" stroke-linecap="round" d="M2 15.7647C2 18.1038 3.91878 20 6.28571 20H7" />
+                        <path fill="none" stroke="#FF9800" stroke-width="2.2" stroke-linecap="round" d="M7.11616 11.6089C6.8475 11.5567 6.56983 11.5294 6.28571 11.5294C3.91878 11.5294 2 13.4256 2 15.7647" />
+                        <path fill="none" stroke="#F44336" stroke-width="2.2" stroke-linecap="round" d="M7.11616 11.6089C6.88706 10.9978 6.7619 10.3369 6.7619 9.64706C6.7619 6.52827 9.32028 4 12.4762 4C15.4159 4 17.8371 6.19371 18.1551 9.01498M18.1551 9.01498C18.8381 9.24853 19.4623 9.60648 20 10.0614M22 14.3529C22 17.4717 19.4416 20 16.2857 20H11M14.381 9.02721C14.9767 8.81911 15.6178 8.70588 16.2857 8.70588C16.9404 8.70588 17.5693 8.81468 18.1551 9.01498" />
+                    </g>
+                    <path fill="#F44336" d="M 50,40 C 51,45.5 53.5,47.5 57,48.5 C 53.5,49.5 51,51.5 50,57 C 49,51.5 46.5,49.5 43,48.5 C 46.5,47.5 49,45.5 50,40 Z" />
+                </svg>
+                <div class="logo-text"></div>
+            </div>
+        </div>
 
-        <div class="logo">claudsmm</div>
-
-        <button class="icon-circle btn-report">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        </button>
+        <div class="header-right">
+            <div class="lang-dropdown">
+                <button class="lang-switch" id="langBtn">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+                    <span id="currentLangText">English</span>
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;"><path d="M7 10l5 5 5-5z"/></svg>
+                </button>
+                <div class="dropdown-content" id="langDropdown">
+                    <div onclick="selectLanguage('en')" style="text-decoration: underline; opacity: 0.8;">English</div>
+                    <div onclick="selectLanguage('ar')">العربية</div>
+                </div>
+            </div>
+            <a href="#" class="nav-link" id="console-link">Go to console</a>
+            <a href="#" class="nav-link" id="blog-link">Blog</a>
+            <div class="user-avatar" id="userAvatar"></div>
+        </div>
     </header>
 
     <main class="hero">
-        <h2>مرحباً بك في claudsmm</h2>
-        <p>وجهتك الأفضل لخدمات التسويق الرقمي المتميزة.</p>
-        <img src="https://i.postimg.cc/1R2xdZPR/IMG-5513.png" alt="Marketing Services">
+        <div class="promo-box">
+            <div class="promo-content">
+                <div class="promo-title" id="promo_title"></div>
+                <div class="promo-desc" id="promo_description"></div>
+            </div>
+            <button class="promo-btn" id="promo_button_text"></button>
+        </div>
+        <h1 id="here_title">
+            <span id="title_first_word"></span>
+            <div class="inline-logo-container" id="inline-logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(14, 14) scale(3.2)">
+                        <path class="cloud-segment color-yellow" d="M2 15.7647C2 18.1038 3.91878 20 6.28571 20H7" />
+                        <path class="cloud-segment color-orange" d="M7.11616 11.6089C6.8475 11.5567 6.56983 11.5294 6.28571 11.5294C3.91878 11.5294 2 13.4256 2 15.7647" />
+                        <path class="cloud-segment color-red" d="M7.11616 11.6089C6.88706 10.9978 6.7619 10.3369 6.7619 9.64706C6.7619 6.52827 9.32028 4 12.4762 4C15.4159 4 17.8371 6.19371 18.1551 9.01498M18.1551 9.01498C18.8381 9.24853 19.4623 9.60648 20 10.0614M22 14.3529C22 17.4717 19.4416 20 16.2857 20H11M14.381 9.02721C14.9767 8.81911 15.6178 8.70588 16.2857 8.70588C16.9404 8.70588 17.5693 8.81468 18.1551 9.01498" />
+                    </g>
+                    <path class="gemini-star" d="M 50,40 C 51,45.5 53.5,47.5 57,48.5 C 53.5,49.5 51,51.5 50,57 C 49,51.5 46.5,49.5 43,48.5 C 46.5,47.5 49,45.5 50,40 Z" />
+                </svg>
+            </div>
+            <span id="title_rest"></span>
+        </h1>
+        <p id="here_subtitle"></p>
     </main>
 
     <div class="bottom-sheet">
-        <button class="sheet-btn btn-google">
-            <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            المتابعة باستخدام حساب Google
-        </button>
-        <button class="sheet-btn btn-login">تسجيل الدخول</button>
+        <div class="sheet-scroll-content">
+            <div class="sheet-logo-group">
+                <svg class="sheet-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(14, 14) scale(3.2)">
+                        <path fill="none" stroke="#FFC107" stroke-width="2.2" stroke-linecap="round" d="M2 15.7647C2 18.1038 3.91878 20 6.28571 20H7" />
+                        <path fill="none" stroke="#FF9800" stroke-width="2.2" stroke-linecap="round" d="M7.11616 11.6089C6.8475 11.5567 6.56983 11.5294 6.28571 11.5294C3.91878 11.5294 2 13.4256 2 15.7647" />
+                        <path fill="none" stroke="#F44336" stroke-width="2.2" stroke-linecap="round" d="M7.11616 11.6089C6.88706 10.9978 6.7619 10.3369 6.7619 9.64706C6.7619 6.52827 9.32028 4 12.4762 4C15.4159 4 17.8371 6.19371 18.1551 9.01498M18.1551 9.01498C18.8381 9.24853 19.4623 9.60648 20 10.0614M22 14.3529C22 17.4717 19.4416 20 16.2857 20H11M14.381 9.02721C14.9767 8.81911 15.6178 8.70588 16.2857 8.70588C16.9404 8.70588 17.5693 8.81468 18.1551 9.01498" />
+                    </g>
+                    <path fill="#F44336" d="M 50,40 C 51,45.5 53.5,47.5 57,48.5 C 53.5,49.5 51,51.5 50,57 C 49,51.5 46.5,49.5 43,48.5 C 46.5,47.5 49,45.5 50,40 Z" />
+                </svg>
+                <div class="sheet-logo-text"></div>
+            </div>
+            <div class="sheet-tagline"></div>
+            <div class="auth-buttons">
+                <button class="icon-btn" id="googleSignInBtn" style="background-color: #FFFFFF; border: 1px solid #dadce0;">
+                    <svg viewBox="0 0 24 24" style="width:18px; height:18px; margin-right: 12px;"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                    <span style="color: #3c4043; font-weight: 500;">Continue with Google</span>
+                </button>
+                <button class="icon-btn" style="background-color: #1877F2; color: white; font-weight: 500;">
+                    <svg viewBox="0 0 24 24" style="width:20px; height:20px; margin-right: 12px;"><path fill="white" d="M12 2.04c-5.5 0-10 4.5-10 10 0 5 3.66 9.12 8.44 9.88v-6.99h-2.54v-2.89h2.54v-2.2c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.45 2.89h-2.33v6.99c4.78-.76 8.44-4.88 8.44-9.88 0-5.5-4.5-10-10-10z"/></svg>
+                    Continue with Facebook
+                </button>
+            </div>
+            <div class="more-options"></div>
+            <div class="terms-text"></div>
+        </div>
+        <div class="login-footer"></div>
     </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB98ZcMGXH5z20p7H9T-PXyM_29Xb0KN54",
+            authDomain: "claudsmm.com",
+            projectId: "claudsmm-1bf0e",
+            storageBucket: "claudsmm-1bf0e.firebasestorage.app",
+            messagingSenderId: "1028854156095",
+            appId: "1:1028854156095:web:a501ebb98679f82a40218a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        let currentLang = "en";
+
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+        const avatarDiv = document.getElementById('userAvatar');
+
+        langBtn.onclick = (e) => {
+            e.stopPropagation();
+            langDropdown.classList.toggle('show');
+        };
+
+        window.onclick = () => {
+            if (langDropdown.classList.contains('show')) {
+                langDropdown.classList.remove('show');
+            }
+        };
+
+        window.selectLanguage = function(lang) {
+            currentLang = lang;
+            document.getElementById('currentLangText').innerText = lang === 'ar' ? 'العربية' : 'English';
+            
+            // Update UI for original English preference
+            const options = langDropdown.querySelectorAll('div');
+            options.forEach(opt => {
+                opt.style.textDecoration = 'none';
+                opt.style.opacity = '1';
+            });
+            const selectedOpt = lang === 'en' ? options[0] : options[1];
+            selectedOpt.style.textDecoration = 'underline';
+            selectedOpt.style.opacity = '0.8';
+
+            langDropdown.classList.remove('show');
+            loadTexts();
+        };
+
+        async function loadTexts() {
+            try {
+                const docRef = doc(db, "app_data", currentLang);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    document.querySelectorAll('.logo-text, .sheet-logo-text').forEach(el => {
+                        el.innerText = data.logo_name || "";
+                    });
+                    
+                    const fullTitle = data.here_title || "";
+                    const words = fullTitle.split(' ');
+                    if (words.length > 0) {
+                        document.getElementById('title_first_word').innerText = words[0];
+                        document.getElementById('title_rest').innerText = words.slice(1).join(' ');
+                    }
+
+                    document.getElementById('promo_title').innerText = data.promo_title || "";
+                    document.getElementById('promo_description').innerText = data.promo_description || "";
+                    document.getElementById('promo_button_text').innerText = data.promo_button_text || "";
+                    document.querySelector('.sheet-tagline').innerText = data.tagline || "";
+                    document.querySelector('.more-options').innerText = data.more_options || "";
+                    document.querySelector('.terms-text').innerHTML = data.terms_text || "";
+                    
+                    const consoleLink = document.getElementById('console-link');
+                    const blogLink = document.getElementById('blog-link');
+                    if(currentLang === 'ar') {
+                        consoleLink.innerText = "انتقل إلى وحدة التحكم";
+                        blogLink.innerText = "مدونة";
+                    } else {
+                        consoleLink.innerText = "Go to console";
+                        blogLink.innerText = "Blog";
+                    }
+
+                    const footer = document.querySelector('.login-footer');
+                    if (footer && data.footer_text) {
+                        footer.innerHTML = `${data.footer_text} <span>${data.login_link || ""}</span>`;
+                    }
+                }
+            } catch (error) {
+                console.error("Error loading texts:", error);
+            }
+        }
+
+        // Particle explosion logic
+        function createExplosion() {
+            const container = document.getElementById('inline-logo');
+            if (!container) return;
+            const colors = ['#FFC107', '#FF9800', '#F44336'];
+            
+            for (let i = 0; i < 40; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                p.style.left = '50%';
+                p.style.top = '50%';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 20 + Math.random() * 60;
+                const tx = Math.cos(angle) * velocity + 'px';
+                const ty = Math.sin(angle) * velocity + 'px';
+                
+                p.style.setProperty('--tx', tx);
+                p.style.setProperty('--ty', ty);
+                p.style.animation = `sand-explosion ${0.6 + Math.random() * 0.4}s ease-out forwards`;
+                
+                container.appendChild(p);
+                setTimeout(() => p.remove(), 1000);
+            }
+        }
+
+        setInterval(createExplosion, 3500);
+
+        const handleSignIn = async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                if (result.user) window.location.href = "Dashboard/";
+            } catch (error) {
+                console.error("Auth Error:", error.code);
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                avatarDiv.style.display = 'flex';
+                if (user.photoURL) {
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="${user.email}" title="${user.email}">`;
+                } else {
+                    const initial = user.email ? user.email.charAt(0).toUpperCase() : '?';
+                    avatarDiv.innerHTML = `<span title="${user.email}" style="font-weight: 600; color: #5F6368; font-size: 0.9rem;">${initial}</span>`;
+                }
+                avatarDiv.onclick = () => window.location.href = "Dashboard/";
+            } else {
+                avatarDiv.style.display = 'none';
+                avatarDiv.innerHTML = '';
+            }
+        });
+
+        loadTexts();
+        setPersistence(auth, browserLocalPersistence);
+        document.getElementById('googleSignInBtn').onclick = handleSignIn;
+        avatarDiv.onclick = handleSignIn;
+    </script>
 </body>
 </html>
