@@ -2,297 +2,685 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>claudsmm</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>claudsmm Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* الحل الجذري: تثبيت الجسم ومنع السحب الخارجي */
-        html, body {
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            overflow: hidden; /* يمنع سحب الصفحة كاملة في آيفون */
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #1e293b;
+            font-family: sans-serif;
+            -webkit-tap-highlight-color: transparent; /* إزالة الوميض الأزرق عند الضغط في الهواتف */
+            padding-bottom: 90px; /* مساحة في الأسفل لتفادي تداخل المحتوى مع الشريط السفلي */
+            background-color: #FBFAFA;
         }
-
-        /* حاوية التمرير الداخلية */
-        .main-content {
-            height: 100%;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-top: 70px; /* مساحة الهيدر */
-            padding-bottom: 80px; /* مساحة الناف بار */
+        .header {
+            background-color: #FBFAFA;
+            padding: 16px 24px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            z-index: 1001;
+        }
+        .content {
+            background-color: #FBFAFA;
+            min-height: 100vh;
+            padding: 24px 20px;
             box-sizing: border-box;
+            max-width: 480px;
+            margin: 0 auto;
         }
+        /* تنسيق أيقونة الموقع */
+        .header-logo {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cloud-segment {
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .color-yellow { stroke: #FFC107; }
+        .color-orange { stroke: #FF9800; }
+        .color-red { stroke: #F44336; }
+        .gemini-star { fill: #F44336; }
 
-        /* --- Header Section --- */
-        header {
-            height: 70px;
+        /* تنسيق قسم الرصيد والأيقونات تحت الهيدر */
+        .page-balance-section {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-            background-color: #f7fafc; 
-            position: absolute; /* تغيير إلى absolute لضمان الثبات التام داخل الحاوية الأم */
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 99999;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
+            gap: 12px;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 24px;
         }
-
-        .logo {
-            font-size: 1.2rem;
+        .balance-right-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .balance-badge {
+            background-color: #F1F3F4;
+            color: #1A1C19;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 15px;
             font-weight: 600;
-            letter-spacing: -0.5px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            text-transform: lowercase;
-            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
         }
-
-        .icon-circle {
-            width: 40px;
-            height: 40px;
+        .circle-btn {
+            background-color: #F1F3F4;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border: none;
-            transition: transform 0.2s;
-            background-color: #5570f4;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            padding: 0;
+            transition: background-color 0.2s, transform 0.1s;
         }
-
-        .btn-notes { background-color: #5570f4; }
-        .btn-report { background-color: #5570f4; }
-        .icon-circle:active { transform: scale(0.95); }
-
-        svg { width: 20px; height: 20px; fill: #ffffff; }
-
-        /* --- Wallet Section --- */
-        .wallet-section {
-            background-color: #f8fafc;
-            padding: 40px 20px;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            direction: rtl;
-            border-bottom: 1px solid #f1f5f9;
+        .circle-btn:active {
+            transform: scale(0.95);
+            background-color: #E2E5E7;
         }
-
-        .wallet-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .circle-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #1A1C19;
         }
-
-        .wallet-details {
-            text-align: right;
-        }
-
-        .wallet-label {
-            font-size: 0.9rem;
-            color: #64748b;
-            margin: 0;
-            margin-bottom: 4px;
-        }
-
-        .wallet-balance {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin: 0;
-        }
-
-        .deposit-btn {
-            background-color: #1e293b;
-            color: #ffffff;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .deposit-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* --- Services Grid Section --- */
-        .services-container {
-            padding: 20px 0 20px 20px;
-            display: flex;
-            flex-direction: row-reverse;
-            gap: 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x mandatory; 
-            scroll-behavior: smooth;
-        }
-
-        .services-container::-webkit-scrollbar {
+        .circle-btn .eye-hidden {
             display: none;
         }
 
-        .service-item {
+        /* تنسيق قسم الرصيد الإجمالي */
+        .total-balance-box {
+            font-family: 'Inter', sans-serif;
+            margin-top: 25px;
+            color: #5F6368;
+        }
+        .total-balance-label {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #70757a;
+        }
+        .total-balance-amount {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #1A1C19;
+        }
+
+        /* تنسيق أزرار الخيارات الدائرية الأربعة الحديثة */
+        .balance-options-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-top: 28px;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+        }
+        .option-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
-            min-width: 25.7%;
-            scroll-snap-align: start; 
+            flex: 1;
+            max-width: 110px;
+            cursor: pointer;
+            user-select: none;
+            text-decoration: none;
         }
-
-        .service-circle {
-            width: 65px;
-            height: 65px;
-            background-color: #f1f5f9;
+        .option-circle-btn {
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
+            background-color: #F1F3F4;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: none;
+            padding: 0;
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
             cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.2s;
         }
-
-        .service-circle:active {
-            border-color: #5570f4;
-            transform: scale(0.95);
+        .option-item:hover .option-circle-btn {
+            background-color: #E8EAED;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
         }
-
-        .service-circle svg {
-            width: 28px;
-            height: 28px;
-            fill: #5570f4;
+        .option-item:active .option-circle-btn {
+            transform: scale(0.92);
+            background-color: #E2E5E7;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
         }
-
-        .service-name {
-            font-size: 0.7rem;
+        .option-circle-btn.btn-deposit-primary {
+            background-color: #F44336;
+            box-shadow: 0 6px 16px rgba(244, 67, 54, 0.25);
+        }
+        .option-item:hover .option-circle-btn.btn-deposit-primary {
+            background-color: #E53935;
+            box-shadow: 0 8px 20px rgba(244, 67, 54, 0.35);
+        }
+        .option-item:active .option-circle-btn.btn-deposit-primary {
+            transform: scale(0.92);
+            background-color: #D32F2F;
+            box-shadow: 0 3px 8px rgba(244, 67, 54, 0.2);
+        }
+        .option-circle-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: #1A1C19;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .option-circle-btn.btn-deposit-primary svg {
+            stroke: #FFFFFF;
+        }
+        .option-label {
+            font-size: 13px;
             font-weight: 600;
-            color: #475569;
-            white-space: nowrap;
+            color: #1A1C19;
+            text-align: center;
         }
 
-        /* --- Bottom Navigation --- */
+        /* تنسيق بطاقة الحساب الجديدة */
+        .account-card-container {
+            margin-top: 32px;
+            background-color: #FFFFFF;
+            border-radius: 28px;
+            padding: 0 0 24px 0;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .card-top-banner {
+            background-color: #D4E3EA;
+            padding: 18px 20px 24px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+            position: relative;
+        }
+        .cards-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #142300;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s;
+        }
+        .cards-link:active {
+            opacity: 0.7;
+        }
+        .card-top-logo {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .account-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 20px 0 20px;
+            text-decoration: none;
+        }
+        .account-main-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #191C17;
+            margin: 0;
+        }
+        .account-main-balance {
+            font-size: 16px;
+            color: #43483F;
+            margin-top: 4px;
+            padding: 0 20px;
+        }
+        .currency-list {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+        .currency-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-radius: 16px;
+            margin: 0 8px;
+            text-decoration: none;
+        }
+        .currency-item:hover {
+            background-color: #F8F9FA;
+        }
+        .currency-item:active {
+            background-color: #E8EAED;
+        }
+        .currency-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .flag-icon-container {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #F1F3F4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .flag-icon-container svg {
+            width: 20px;
+            height: 20px;
+            fill: #1A1C19;
+        }
+        .currency-amount {
+            font-size: 16px;
+            font-weight: 600;
+            color: #191C17;
+        }
+        .arrow-icon {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #43483F;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* تنسيق الشريط السفلي المتجاوب مع الهواتف والحواسب */
         .bottom-nav {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background-color: #f7fafc; 
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 440px;
+            background-color: rgba(220, 222, 225, 0.45);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 40px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            z-index: 9999;
-            direction: rtl;
+            padding: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
-
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
-            text-decoration: none;
-            color: #64748b;
+            justify-content: center;
             flex: 1;
-        }
-
-        .nav-item.active {
-            color: #5570f4;
-        }
-
-        .nav-item svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-        }
-
-        .nav-label {
-            font-size: 0.75rem;
+            color: #5F6368;
+            font-size: 11.5px;
             font-weight: 500;
+            padding: 10px 0;
+            border-radius: 32px;
+            gap: 5px;
+            transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+            user-select: none;
+        }
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: #5F6368;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.25s ease, stroke-width 0.25s ease;
+        }
+        .nav-item:active {
+            transform: scale(0.92);
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #1A1C19;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        }
+        .nav-item.active svg {
+            stroke: #1A1C19;
+            stroke-width: 2.2;
+        }
+
+        /* تعديل التصميم ليصبح شريطاً جانبياً عمودياً ممتداً في الحواسب وشاشات العرض الكبيرة */
+        @media (min-width: 769px) {
+            body {
+                padding-bottom: 0;
+                padding-left: 140px; /* إضافة مساحة على اليسار لمنع تداخل المحتوى مع الشريط الجانبي */
+            }
+            .bottom-nav {
+                top: 0;
+                left: 0;
+                bottom: 0;
+                transform: none;
+                width: 100px;
+                height: 100vh;
+                max-height: none;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 24px;
+                padding: 40px 8px;
+                border-radius: 0;
+                border: none;
+                border-right: 1px solid rgba(0, 0, 0, 0.05);
+                background-color: rgba(220, 222, 225, 0.5);
+            }
+            .nav-item {
+                flex: none;
+                width: 100%;
+                padding: 14px 0;
+            }
+            /* تعديل ترتيب العناصر في الشريط الجانبي ليصبح Support في النهاية تماماً */
+            .nav-item.nav-support-item {
+                margin-top: auto;
+            }
+            /* تعديل شكل قسم Quick Access وباقي العناصر لتناسب شاشات الحاسوب الكبيرة */
+            .content {
+                max-width: 800px;
+                padding: 40px;
+            }
+            .account-card-container {
+                border-radius: 24px;
+            }
+            .currency-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                padding: 16px;
+            }
+            .currency-item {
+                margin: 0;
+                border: 1px solid rgba(0, 0, 0, 0.04);
+                background-color: #FAFBFB;
+            }
+        }
+
+        /* حاوية لاستدعاء الصفحات الخارجية بشكل سلس داخل المحتوى */
+        .iframe-container {
+            width: 100%;
+            height: calc(100vh - 70px);
+            border: none;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <button class="icon-circle btn-notes">
-            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        </button>
+    <div class="header">
+        <div class="header-logo">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                <g transform="translate(14, 14) scale(3.2)">
+                    <path class="cloud-segment color-yellow" d="M2 15.7647C2 18.1038 3.91878 20 6.28571 20H7" />
+                    <path class="cloud-segment color-orange" d="M7.11616 11.6089C6.8475 11.5567 6.56983 11.5294 6.28571 11.5294C3.91878 11.5294 2 13.4256 2 15.7647" />
+                    <path class="cloud-segment color-red" d="M7.11616 11.6089C6.88706 10.9978 6.7619 10.3369 6.7619 9.64706C6.7619 6.52827 9.32028 4 12.4762 4C15.4159 4 17.8371 6.19371 18.1551 9.01498M18.1551 9.01498C18.8381 9.24853 19.4623 9.60648 20 10.0614M22 14.3529C22 17.4717 19.4416 20 16.2857 20H11M14.381 9.02721C14.9767 8.81911 15.6178 8.70588 16.2857 8.70588C16.9404 8.70588 17.5693 8.81468 18.1551 9.01498" />
+                </g>
+                <path class="gemini-star" d="M 50,40 C 51,45.5 53.5,47.5 57,48.5 C 53.5,49.5 51,51.5 50,57 C 49,51.5 46.5,49.5 43,48.5 C 46.5,47.5 49,45.5 50,40 Z" />
+            </svg>
+        </div>
+        <span style="font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.5px; color: #5F6368; text-transform: none;">claudsmm</span>
+    </div>
 
-        <div class="logo">claudsmm</div>
+    <iframe id="page-loader" class="iframe-container" src=""></iframe>
 
-        <button class="icon-circle btn-report">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        </button>
-    </header>
-
-    <div class="main-content">
-        <div class="wallet-section">
-            <div class="wallet-info">
-                <div class="wallet-details">
-                    <p class="wallet-label">رصيدي</p>
-                    <p class="wallet-balance">$0.00</p>
+    <div class="content" id="main-content">
+        <div class="page-balance-section">
+            <button class="circle-btn" onclick="handleButtonClick(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24">
+                    <path d="M12,12A6,6,0,1,0,6,6,6.006,6.006,0,0,0,12,12ZM12,2A4,4,0,1,1,8,6,4,4,0,0,1,12,2Z"/>
+                    <path d="M12,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,12,14Z"/>
+                </svg>
+            </button>
+            <div class="balance-right-group">
+                <div class="balance-badge">
+                    <span>Dollar</span>
+                    <span id="balance-text">$0.00</span>
                 </div>
+                <button class="circle-btn" onclick="toggleBalance()">
+                    <svg class="eye-visible" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24">
+                        <path d="M23.271,9.419C21.72,6.893,18.192,2.655,12,2.655S2.28,6.893,.729,9.419a4.908,4.908,0,0,0,0,5.162C2.28,17.107,5.808,21.345,12,21.345s9.72-4.238,11.271-6.764A4.908,4.908,0,0,0,23.271,9.419Zm-1.705,4.115C20.234,15.7,17.219,19.345,12,19.345S3.766,15.7,2.434,13.534a2.918,2.918,0,0,1,0-3.068C3.766,8.3,6.781,4.655,12,4.655s8.234,3.641,9.566,5.811A2.918,2.918,0,0,1,21.566,13.534Z"/>
+                        <path d="M12,7a5,5,0,1,0,5,5A5.006,5.006,0,0,0,12,7Zm0,8a3,3,0,1,1,3-3A3,3,0,0,1,12,15Z"/>
+                    </svg>
+                    <svg class="eye-hidden" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
+                        <path d="m14.828,19.071c.576.576.266,1.559-.534,1.707-.008.001-.016.003-.024.004-.322.059-.656-.053-.888-.285L2.216,9.332c-.361-.361-.397-.932-.083-1.334.004-.005.008-.011.013-.016.371-.474,1.08-.514,1.505-.088l11.177,11.177ZM.528,10.473c-.143.272-.261.514-.35.708-.237.521-.237,1.118,0,1.64.041.091.094.199.147.308l5.915,5.915c.782.782,1.758,1.346,2.833,1.603.086.021.173.04.261.059.537.116.902-.524.514-.912L.528,10.473Zm23.179,11.82c.391.391.391,1.023,0,1.414-.195.195-.451.293-.707.293s-.512-.098-.707-.293L.293,1.707C-.098,1.316-.098.684.293.293S1.316-.098,1.707.293l4.268,4.268c1.838-1.036,3.862-1.561,6.025-1.561,6.192,0,9.72,4.238,11.271,6.764.978,1.592.978,3.57,0,5.162-.632,1.029-1.678,2.473-3.178,3.753l3.614,3.614ZM7.455,6.041l1.788,1.788c1.94-1.283,4.586-1.071,6.293.636,1.707,1.708,1.919,4.353.636,6.293l2.502,2.502c1.368-1.135,2.322-2.45,2.894-3.381.581-.946.581-2.122,0-3.068-1.333-2.17-4.349-5.811-9.567-5.811-1.619,0-3.143.35-4.545,1.041Zm7.252,7.252c.531-1.115.336-2.492-.585-3.414-.922-.922-2.3-1.116-3.414-.585l4,4Z"/>
+                    </svg>
+                </button>
             </div>
-            <button class="deposit-btn">إيداع</button>
         </div>
 
-        <div class="services-container">
-            <div class="service-item">
-                <div class="service-circle">
-                    <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                </div>
-                <span class="service-name">إيداع</span>
-            </div>
+        <div class="total-balance-box">
+            <div class="total-balance-label">Total balance</div>
+            <div class="total-balance-amount" id="total-balance-amount">0.00 USD</div>
+        </div>
 
-            <div class="service-item">
-                <div class="service-circle">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                </div>
-                <span class="service-name">خدمات SMM</span>
-            </div>
+        <div class="balance-options-container">
+            <a href="javascript:void(0);" class="option-item" onclick="handleButtonClick(this)">
+                <button class="option-circle-btn btn-deposit-primary" style="pointer-events: none;">
+                    <svg viewBox="0 0 24 24">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <span class="option-label">Deposit</span>
+            </a>
+            <a href="javascript:void(0);" class="option-item" onclick="handleButtonClick(this)">
+                <button class="option-circle-btn" style="pointer-events: none;">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="19" cy="12" r="1"></circle>
+                        <circle cx="5" cy="12" r="1"></circle>
+                    </svg>
+                </button>
+                <span class="option-label">More</span>
+            </a>
+        </div>
 
-            <div class="service-item">
-                <div class="service-circle">
-                    <svg viewBox="0 0 24 24"><path d="M13 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-7-6zm3 14H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        <div class="account-card-container">
+            <div class="card-top-banner">
+                <a href="javascript:void(0);" class="cards-link" id="quick-access-link" onclick="loadExternalPage('quick-access-url-here/index.html', this)">
+                    Quick Access
+                    <svg class="arrow-icon" style="stroke: #142300; width: 14px; height: 14px;" viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+                <div class="card-top-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                        <g transform="translate(14, 14) scale(3.2)">
+                            <path class="cloud-segment" style="stroke: #142300;" d="M2 15.7647C2 18.1038 3.91878 20 6.28571 20H7" />
+                            <path class="cloud-segment" style="stroke: #142300;" d="M7.11616 11.6089C6.8475 11.5567 6.56983 11.5294 6.28571 11.5294C3.91878 11.5294 2 13.4256 2 15.7647" />
+                            <path class="cloud-segment" style="stroke: #142300;" d="M7.11616 11.6089C6.88706 10.9978 6.7619 10.3369 6.7619 9.64706C6.7619 6.52827 9.32028 4 12.4762 4C15.4159 4 17.8371 6.19371 18.1551 9.01498M18.1551 9.01498C18.8381 9.24853 19.4623 9.60648 20 10.0614M22 14.3529C22 17.4717 19.4416 20 16.2857 20H11M14.381 9.02721C14.9767 8.81911 15.6178 8.70588 16.2857 8.70588C16.9404 8.70588 17.5693 8.81468 18.1551 9.01498" />
+                        </g>
+                        <path d="M 50,40 C 51,45.5 53.5,47.5 57,48.5 C 53.5,49.5 51,51.5 50,57 C 49,51.5 46.5,49.5 43,48.5 C 46.5,47.5 49,45.5 50,40 Z" style="fill: #142300;" />
+                    </svg>
                 </div>
-                <span class="service-name">المعاملات</span>
             </div>
+            
+            <div class="account-row">
+                <h2 class="account-main-title">Services & Offers</h2>
+                <svg class="arrow-icon" viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </div>
+            <div class="account-main-balance"></div>
 
-            <div class="service-item">
-                <div class="service-circle">
-                    <svg viewBox="0 0 24 24"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm1 10V7h-2v7h6v-2h-4z"/></svg>
-                </div>
-                <span class="service-name">قيد التنفيذ</span>
+            <div class="currency-list">
+                <a href="javascript:void(0);" class="currency-item" onclick="loadExternalPage('social-media-smm-url/index.html', this)">
+                    <div class="currency-info">
+                        <div class="flag-icon-container">
+                            <svg id="Layer_1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m21 18a2.986 2.986 0 0 0 -2.077.844l-2.96-1.481a2.9 2.9 0 0 0 .037-.363 2.9 2.9 0 0 0 -.037-.363l2.96-1.481a2.994 2.994 0 1 0 -.923-2.156 2.9 2.9 0 0 0 .037.363l-2.96 1.481a3 3 0 1 0 0 4.312l2.96 1.481a2.9 2.9 0 0 0 -.037-.363 3 3 0 1 0 3-3zm0-6a1 1 0 1 1 -1 1 1 1 0 0 1 1-1zm-8 6a1 1 0 1 1 1-1 1 1 0 0 1 -1 1zm8 4a1 1 0 1 1 1-1 1 1 0 0 1 -1 1zm-9 0a1 1 0 0 1 -1 1h-5.321a5.841 5.841 0 0 1 -5.622-4.7 5.443 5.443 0 0 1 2.885-5.651 7.652 7.652 0 0 1 -.8-5.18 8 8 0 0 1 15.49-.842 1.09 1.09 0 0 0 .722.735 1 1 0 1 1 -.588 1.911 3.1 3.1 0 0 1 -2.044-2.053 6 6 0 1 0 -11.06 4.513 1.994 1.994 0 0 1 -.792 2.686 3.468 3.468 0 0 0 -1.835 3.6 3.807 3.807 0 0 0 3.644 2.981h5.321a1 1 0 0 1 1 1z"/></svg>
+                        </div>
+                        <span class="currency-amount">Social Media Smm</span>
+                    </div>
+                    <svg class="arrow-icon" viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+
+                <a href="javascript:void(0);" class="currency-item" onclick="loadExternalPage('game-topup-url/index.html', this)">
+                    <div class="currency-info">
+                        <div class="flag-icon-container">
+                            <svg id="Layer_1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m22.714 15.657c-.409-1.365-1.38-2.25-2.714-2.542.052-.591-.399-1.119-1-1.115-.552 0-1 .447-1 1h-4c0-.553-.448-1-1-1-.601-.003-1.052.525-1 1.116-1.334.293-2.306 1.18-2.72 2.564-.967 2.856-1.28 5.331-1.28 6.082 0 1.234 1.004 2.238 2.238 2.238 1.639 0 3.517-2.111 4.281-3.228.331-.483.885-.772 1.481-.772s1.15.289 1.481.771c.764 1.117 2.642 3.229 4.281 3.229 1.234 0 2.238-1.004 2.238-2.238 0-.751-.313-3.226-1.286-6.104zm-.951 6.343c-.368-.014-1.646-.918-2.631-2.358-.705-1.027-1.875-1.642-3.131-1.642s-2.427.614-3.131 1.643c-.985 1.439-2.264 2.344-2.63 2.357-.131 0-.238-.106-.238-.238 0-.526.278-2.794 1.202-5.53.158-.528.517-1.231 1.798-1.231h6c1.281 0 1.64.703 1.826 1.32.896 2.647 1.174 4.915 1.174 5.441 0 .132-.107.238-.237.238zm-7.763-17c.552 0 1 .447 1 1s-.448 1-1 1h-8c-.552 0-1-.447-1-1s.448-1 1-1zm-5 6h-3c-.552 0-1-.447-1-1s.448-1 1-1h3c.552 0 1 .447 1 1s-.448 1-1 1zm-3 12c0 .553-.448 1-1 1-2.757 0-5-2.243-5-5v-14c0-2.757 2.243-5 5-5h10c2.757 0 5 2.243 5 5v4c0 .553-.448 1-1 1s-1-.447-1-1v-4c0-1.654-1.346-3-3-3h-10c-1.654 0-3 1.346-3 3v14c0 1.654 1.346 3 3 3 .552 0 1 .447 1 1z"/></svg>
+                        </div>
+                        <span class="currency-amount">Game Top-Up</span>
+                    </div>
+                    <svg class="arrow-icon" viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
             </div>
         </div>
     </div>
 
-    <nav class="bottom-nav">
-        <a href="#" class="nav-item active">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            <span class="nav-label">الرئيسية</span>
-        </a>
-        <a href="#" class="nav-item">
-            <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z"/></svg>
-            <span class="nav-label">الخدمات</span>
-        </a>
-        <a href="#" class="nav-item">
-            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            <span class="nav-label">حسابي</span>
-        </a>
-    </nav>
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="handleNavClick(this, event)">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="handleNavClick(this, event)">
+            <svg viewBox="0 0 24 24">
+                <path d="M16.5 3.5 L20.5 7.5 M13.5 6.5 L20.5 13.5" stroke-linecap="round"></path>
+                <path d="M16 3.5 L20.5 3.5 L20.5 8" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M7.5 20.5 L3.5 16.5 M10.5 17.5 L3.5 10.5" stroke-linecap="round"></path>
+                <path d="M8 20.5 L3.5 20.5 L3.5 16" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <span>Payments</span>
+        </div>
+        <div class="nav-item" onclick="handleNavClick(this, event)">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span>Settings</span>
+        </div>
+        <div class="nav-item nav-support-item" onclick="handleNavClick(this, event)">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+            <span>Support</span>
+        </div>
+    </div>
+
+    <script>
+        let isHidden = false;
+        function toggleBalance() {
+            const balanceText = document.getElementById('balance-text');
+            const totalBalanceAmount = document.getElementById('total-balance-amount');
+            const eyeVisible = document.querySelector('.eye-visible');
+            const eyeHidden = document.querySelector('.eye-hidden');
+            
+            isHidden = !isHidden;
+            
+            if (isHidden) {
+                balanceText.textContent = '•••••';
+                totalBalanceAmount.textContent = '•••••';
+                eyeVisible.style.display = 'none';
+                eyeHidden.style.display = 'block';
+            } else {
+                balanceText.textContent = '$0.00';
+                totalBalanceAmount.textContent = '0.00 USD';
+                eyeVisible.style.display = 'block';
+                eyeHidden.style.display = 'none';
+            }
+        }
+
+        function handleNavClick(element, event) {
+            if (event) event.preventDefault();
+            
+            // عند الضغط على أزرار القائمة السفلية، نعود للصفحة الرئيسية ونخفي الـ iframe
+            document.getElementById('page-loader').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                const svgPaths = item.querySelectorAll('svg path');
+                svgPaths.forEach(path => {
+                    if(path.getAttribute('style')) {
+                        path.style.stroke = '#5F6368';
+                        path.style.strokeWidth = '2';
+                    }
+                });
+            });
+            element.classList.add('active');
+            
+            const activeSvgPaths = element.querySelectorAll('svg path');
+            activeSvgPaths.forEach(path => {
+                if(path.getAttribute('style')) {
+                    path.style.stroke = '#1A1C19';
+                    path.style.strokeWidth = '2.2';
+                }
+            });
+        }
+
+        function handleButtonClick(element) {
+            // تأثير الضغط الاحترافي السريع والرجوع للوضع الطبيعي تلقائيًا لتستعمل دائماً بدون تعليق
+            element.style.transform = 'scale(0.95)';
+            element.style.opacity = '0.7';
+            setTimeout(() => {
+                element.style.transform = 'none';
+                element.style.opacity = '1';
+            }, 120);
+        }
+
+        // وظيفة جلب وعرض الصفحة الخارجية المطلوبة تحت الهيدر وفوق شريط التنقل السفلي
+        function loadExternalPage(url, element) {
+            handleButtonClick(element);
+            
+            const mainContent = document.getElementById('main-content');
+            const pageLoader = document.getElementById('page-loader');
+            
+            mainContent.style.display = 'none';
+            pageLoader.src = url;
+            pageLoader.style.display = 'block';
+        }
+    </script>
 
 </body>
 </html>
